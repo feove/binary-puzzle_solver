@@ -2,29 +2,22 @@ from math import *
 
 print("=============================")
 
-M_Line = [
-    [1,3,3,0,0,3,0,3,0,3,0,0]
-]
+M_Line = [3,3,3,3]
 
-M_Line_Solved = [
-    [1,0,1,0,0,1,0,1,0,1,0,0]
-]
+M_Line_Solved = [3,3,3,3]
 
-M_Line_1 = [
-    [3,0,3,0,3,1,1,3,1,1,3,3]
-]
+M_Line_1 = [1,3,3,1]
 
-M_Line_Solved_1 = [
-    [3,0,1,0,0,1,1,0,1,1,0,3]
-]
+M_Line_Solved_1 = [1,0,0,1]
 
-M_Line_2 =[
-    [1,3,0,3,1,1]
-]
+M_Line_2 = [3,3,0,0,1,3,0,0]
 
-M_Line_Solved_2 =[
-    [1,1,0,0,1,1]
-]
+M_Line_Solved_2 = [1,1,0,0,1,1,0,0]
+
+M_Line_3 = [3,3,3,0,1,3,0,0]
+
+M_Line_Solved_3 = [3,3,3,0,1,3,0,0]
+
 
 M1 = [
     [1,1,3],
@@ -50,14 +43,14 @@ M1_solved = [
 M2 = [
     [1,3,0,0],
     [3,0,3,1],
-    [1,1,3,1],
+    [1,0,3,1],
     [0,3,0,3]
 ]
 
 M2_solved = [
     [1,1,0,0],
     [0,0,1,1],
-    [1,1,0,1],
+    [1,0,0,1],
     [0,1,0,0]
 ]
 
@@ -103,6 +96,25 @@ M3_solved = [
     [1,0,3,3,3,0],
     [3,0,3,3,0,1]
 ]
+
+M4 = [
+    [1, 3, 3, 0, 3, 3],
+    [3, 3, 0, 0, 3, 1],
+    [3, 0, 0, 3, 3, 1],
+    [3, 3, 3, 3, 3, 3],
+    [0, 0, 3, 1, 3, 3],
+    [3, 1, 3, 3, 0, 0]
+]
+
+M4_solved = [
+    [1, 0, 1, 0, 1, 0],
+    [0, 1, 0, 0, 1, 1],
+    [1, 0, 0, 1, 0, 1],
+    [0, 1, 1, 0, 1, 0],
+    [0, 0, 1, 1, 0, 1],
+    [1, 1, 0, 1, 0, 0]
+]
+
 def make_line_str(Line:list,nbCol:int,indication=None):
 
     string_line = "["
@@ -214,21 +226,40 @@ def all_colums_solver(M):
     for c in range(len(M[0])):
         colum_solver(M,c)
 
+def line_filling(Line:list):
+
+    count_one = 0
+    count_void = 0
+    size = len(Line)
+
+    for i in range(size):
+        
+        if (Line[i] == 1):
+            count_one += 1
+        if (Line[i] == 3):
+            count_void += 1
+            
+    can_fill = (count_one == size/2 or size-count_one-count_void == size/2) and count_void > 0
+
+    if (can_fill):
+        for j in range(size):
+            if (Line[j] == 3):
+                if (count_one == size/2):
+                    Line[j] = 0
+                else:
+                    Line[j] = 1
+
+    return can_fill
+
 def symbols_filling(M):
 
-    filled = False
-
-    nbLine = len(M)
-    nbCol = len(M[0])
+    solved = True
 
     for l in M:
+        if (line_filling(l)):
+            solved = False
 
-        count_one = 0
-        count_zero = 0
-
-    return filled
-
-solved = False
+    return not solved
 
 def main(M):
 
@@ -238,9 +269,7 @@ def main(M):
   
     global global_edited
 
-    global solved
-
-    while(not solved):
+    while(symbols_filling(M)):
     
         while(global_edited):
 
@@ -249,11 +278,10 @@ def main(M):
             all_lines_solver(M)
             
             all_colums_solver(M)
-
-        
     
-    print_grid(M,"Final Matrix",M2_solved,"Matrix Solved")
+    print_grid(M,"Final Matrix",M4_solved,"Matrix Solved")
 
-main(M2)
+
+main(M4)
 
 print("=============================")
