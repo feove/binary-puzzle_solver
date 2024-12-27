@@ -78,6 +78,53 @@ M_Colum_solved = [
     [1]
 ]
 
+M_line_fill = [
+    [1,0,3,3,0,0],
+    [1,3,3,1,3,3],
+    [1,0,3,1,1,0],
+    [1,0,0,1,3,0],
+    [1,0,3,0,3,0],
+    [1,0,1,1,3,3]
+]
+
+M_line_fill_solved = [
+    [1,0,1,1,0,0],
+    [1,3,3,1,3,3],
+    [1,0,0,1,1,0],
+    [1,0,0,1,1,0],
+    [1,0,1,0,1,0],
+    [1,0,1,1,0,0]
+]
+
+M_Colum_fill = [
+    [1,0,3,1,3,0],
+    [3,3,1,1,3,1],
+    [3,3,3,3,0,0],
+    [1,3,3,1,0,1],
+    [0,1,1,3,3,0],
+    [1,0,0,3,0,1]
+]
+
+M_Colum_fill = [
+
+    [1,0,3,1,3,0],
+    [3,3,1,1,3,1],
+    [3,3,3,3,0,0],
+    [1,3,3,1,0,1],
+    [0,1,1,3,3,0],
+    [1,0,0,3,0,1]
+]
+
+M_Colum_fill_solved = [
+
+    [1,0,3,1,1,0],
+    [0,3,1,1,1,1],
+    [0,3,3,0,0,0],
+    [1,3,3,1,0,1],
+    [0,1,1,0,1,0],
+    [1,0,0,0,0,1]
+]
+
 
 M3 = [
     [1,1,3,3,0,1],
@@ -214,8 +261,6 @@ def colum_solver(M,j_col):
         
         M[i][j_col] = col[i]
 
-    return col
-
 def all_lines_solver(M):
 
     for l in M:
@@ -239,7 +284,7 @@ def line_filling(Line:list):
         if (Line[i] == 3):
             count_void += 1
             
-    can_fill = (count_one == size/2 or size-count_one-count_void == size/2) and count_void > 0
+    can_fill = (count_one == size/2 or size-count_one-count_void == size/2)
 
     if (can_fill):
         for j in range(size):
@@ -249,9 +294,9 @@ def line_filling(Line:list):
                 else:
                     Line[j] = 1
 
-    return can_fill
+    return count_void > 0
 
-def symbols_filling(M):
+def all_lines_symbols_filling(M):
 
     solved = True
 
@@ -261,18 +306,37 @@ def symbols_filling(M):
 
     return not solved
 
-def main(M):
+def colum_filling(M,j_col:int):
 
+    col = [row[j_col] for row in M]
+
+    line_filling(col)
+
+    for i in range(len(col)):
+        
+        M[i][j_col] = col[i]
+
+def all_colums_symbols_filling(M):
+
+    for c in range(len(M[0])):
+        colum_filling(M,c)
+
+
+def main(M):
+    
     print("Matrix selected :")
 
     print_grid(M,"Initial Matrix")
   
     global global_edited
 
-    while(symbols_filling(M)):
-    
+    count = 0
+    while(all_lines_symbols_filling(M) and count < 5):
+        
+        count += 1
+        all_colums_symbols_filling(M)
         while(global_edited):
-
+            
             global_edited = False
 
             all_lines_solver(M)
