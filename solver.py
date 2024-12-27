@@ -223,7 +223,7 @@ global_edited = True
 def three_symbols_resolve(a:int,b:int,c:int):
 
     sum = a+b+c 
-    if (sum & 3 == 3 or sum & 5 == 5):
+    if (sum == 3 or sum == 5):
 
         global global_edited 
         global_edited = True
@@ -344,7 +344,6 @@ def main(M):
             all_colums_solver(M)
     
     print_grid(M,"Final Matrix",M4_solved,"Matrix Solved")
-
 
 main(M4)
 
