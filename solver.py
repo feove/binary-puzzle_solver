@@ -162,6 +162,19 @@ M4_solved = [
     [1, 1, 0, 1, 0, 0]
 ]
 
+M5 = [
+    [3, 3, 3, 3, 3, 3, 3, 1, 3, 3],
+    [3, 0, 0, 3, 3, 0, 3, 3, 1, 3],
+    [3, 0, 3, 3, 1, 3, 3, 0, 3, 0],
+    [3, 3, 1, 3, 3, 3, 1, 3, 3, 3],
+    [1, 3, 1, 3, 3, 3, 3, 3, 3, 1],
+    [3, 3, 3, 3, 3, 3, 3, 1, 3, 3],
+    [3, 0, 3, 3, 1, 3, 3, 3, 0, 3],
+    [3, 3, 3, 3, 1, 1, 3, 3, 3, 0],
+    [3, 0, 3, 0, 3, 3, 1, 3, 3, 0],
+    [0, 3, 3, 3, 0, 3, 3, 3, 1, 3]
+]
+
 def make_line_str(Line:list,nbCol:int,indication=None):
 
     string_line = "["
@@ -329,22 +342,20 @@ def main(M):
     print_grid(M,"Initial Matrix")
   
     global global_edited
-
-    count = 0
-    while(all_lines_symbols_filling(M) and count < 5):
+   
+    while(all_lines_symbols_filling(M)):
         
-        count += 1
         all_colums_symbols_filling(M)
         while(global_edited):
             
             global_edited = False
-
+        
             all_lines_solver(M)
             
             all_colums_solver(M)
     
-    print_grid(M,"Final Matrix",M4_solved,"Matrix Solved")
+    print_grid(M,"Final Matrix")
 
-main(M4)
+main(M5)
 
 print("=============================")
