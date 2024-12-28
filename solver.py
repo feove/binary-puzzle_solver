@@ -175,6 +175,47 @@ M5 = [
     [0, 3, 3, 3, 0, 3, 3, 3, 1, 3]
 ]
 
+G_14x14_MEDIUM = [
+
+    [0, 3, 3, 3, 3, 0, 3, 3, 3, 0, 3, 0, 3, 0],
+    [3, 0, 3, 1, 3, 3, 3, 3, 3, 3, 3, 1, 3, 0],
+    [1, 3, 3, 1, 3, 3, 0, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 3, 3, 3, 1, 3, 1, 3, 0, 1, 3, 3, 3],
+    [3, 3, 3, 3, 3, 1, 3, 3, 3, 0, 3, 3, 1, 3],
+    [0, 3, 0, 3, 3, 3, 0, 3, 3, 3, 0, 0, 3, 3],
+    [3, 0, 1, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 0, 3, 3],
+    [0, 3, 3, 3, 3, 3, 3, 3, 0, 3, 0, 3, 3, 0],
+    [0, 3, 3, 1, 3, 0, 3, 1, 3, 3, 3, 3, 3, 3],
+    [3, 3, 3, 3, 3, 0, 3, 1, 1, 3, 3, 1, 3, 3],
+    [3, 3, 3, 0, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3],
+    [3, 3, 1, 3, 0, 3, 0, 3, 3, 3, 3, 3, 3, 3],
+    [3, 0, 3, 3, 3, 3, 3, 3, 3, 0, 3, 3, 3, 3]
+]
+
+G_10x10_HARD = [
+
+    [3, 3, 0, 3, 3, 3, 3, 3, 3, 3],
+    [0, 3, 0, 3, 3, 1, 3, 3, 3, 3],
+    [3, 3, 3, 3, 3, 3, 3, 3, 1, 3],
+    [3, 3, 3, 3, 3, 3, 0, 3, 3, 0],
+    [1, 3, 0, 0, 3, 1, 3, 3, 3, 3],
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 0, 3, 3, 1, 3, 1, 3, 3],
+    [1, 3, 3, 3, 3, 3, 3, 3, 1, 1],
+    [3, 3, 3, 0, 3, 3, 3, 3, 3, 3],
+    [1, 3, 3, 3, 1, 3, 1, 3, 1, 3]
+]
+
+G_6x6_HARD = [
+    [3,3,3,1,3,3],
+    [3,3,0,3,3,1],
+    [0,3,3,3,0,3],
+    [3,1,1,3,3,3],
+    [3,3,3,3,3,3],
+    [1,3,3,3,0,3],
+]
+
 def make_line_str(Line:list,nbCol:int,indication=None):
 
     string_line = "["
@@ -208,7 +249,12 @@ def print_grid(M,name=None,M_result=None,M_result_name=None):   #print the matri
 
     print("")
     for i in range(nbLine):
-        print(f"  {i+1}-",end="")
+
+        num = f"{i+1}"
+        if i+1 < 10:
+            num = " " + num        
+
+        print(f" {num}-",end="")
         
         indication = f" --> {name}    "
         if (i != nbLine//2):
@@ -342,20 +388,21 @@ def main(M):
     print_grid(M,"Initial Matrix")
   
     global global_edited
-   
+    count = 0
     while(all_lines_symbols_filling(M)):
         
+        count += 1
         all_colums_symbols_filling(M)
-        while(global_edited):
+        #while(global_edited):
             
-            global_edited = False
+            #global_edited = False
         
-            all_lines_solver(M)
+        all_lines_solver(M)
             
-            all_colums_solver(M)
+        all_colums_solver(M)
     
     print_grid(M,"Final Matrix")
 
-main(M5)
+main(G_14x14_MEDIUM)
 
 print("=============================")
