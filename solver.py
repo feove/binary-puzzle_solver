@@ -162,7 +162,7 @@ M4_solved = [
     [1, 1, 0, 1, 0, 0]
 ]
 
-M5 = [
+G_10x10_EASY = [
     [3, 3, 3, 3, 3, 3, 3, 1, 3, 3],
     [3, 0, 0, 3, 3, 0, 3, 3, 1, 3],
     [3, 0, 3, 3, 1, 3, 3, 0, 3, 0],
@@ -383,23 +383,28 @@ def all_colums_symbols_filling(M):
 
 def main(M):
     
-    print("Matrix selected :")
+    print(" Matrix selected :")
 
     print_grid(M,"Initial Matrix")
   
     global global_edited
     count = 0
     while(all_lines_symbols_filling(M)):
+
+        if (count == 20):
+            print("Need an other way to resolve")
+            break
+
+        lasted_grid = M      
         
-        count += 1
         all_colums_symbols_filling(M)
-        #while(global_edited):
-            
-            #global_edited = False
         
         all_lines_solver(M)
             
         all_colums_solver(M)
+
+        if (M == lasted_grid):
+            count += 1
     
     print_grid(M,"Final Matrix")
 
