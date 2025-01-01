@@ -3,8 +3,8 @@ import graphical_interface as gi
 from pynput import keyboard # type: ignore
 
 def main():
+    
     processid = os.fork()
-
     if processid == 0:  
         while True:
             gi.intro()
@@ -18,8 +18,7 @@ def main():
                     print("Start")
                     return False  
                 
-
-
+                
                 elif key.char == 'q':
                     os.kill(processid, 9)  
                     os.system("clear")
