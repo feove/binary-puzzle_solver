@@ -16,6 +16,7 @@ def main():
                     os.kill(processid, 9) 
                     os.system("clear")
                     print("Start")
+                    gi.cursor_show()
                     return False  
                 
                 
@@ -23,6 +24,7 @@ def main():
                     os.kill(processid, 9)  
                     os.system("clear")
                     print("Exit pressed")
+                    print('\033[? 25h', end="")
                     return False  
                 
             except AttributeError:
