@@ -15,7 +15,12 @@ def main():
 
                     os.kill(processid, 9) 
                     os.system("clear")
-                    print("Start")
+        
+
+                    gi.grid_dimension()
+
+                    
+
                     gi.cursor_show()
                     return False  
                 

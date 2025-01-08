@@ -1,5 +1,6 @@
 import os
 from time import sleep
+from pynput import keyboard # type: ignore
 
 press_string = "          ▁▁▁             ▁▁▁\n    Press ▎s ▎to start or ▎q ▎to quit\n          ▔▔▔             ▔▔▔\n\n\n"
                                                                             
@@ -48,3 +49,33 @@ def intro():
    
     print('\033[? 25h', end="")
 
+dimensions_menu = " 6x6 10x10 12X12 "
+
+def grid_dimension():
+
+   
+    print("Choose the grid dimension:")
+
+    print(dimensions_menu)
+
+    def on_press(key):
+        try:
+            if key.char == 's':
+                print("10x10 Choosen")
+                return False  
+            #need to detect "ENTER" pressed !
+            
+            elif key.char == 'enter':
+                print("12x12 Choosen")
+                return False  
+            
+        except AttributeError:
+            pass
+            
+    
+    with keyboard.Listener(on_press=on_press) as listener:
+        listener.join()
+
+   
+def grid_selction():
+    return
