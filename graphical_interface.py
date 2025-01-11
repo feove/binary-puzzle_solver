@@ -3,10 +3,10 @@ from math import *
 from time import sleep
 from pynput.keyboard import Key, Listener 
 
-press_string = "          ▁▁▁             ▁▁▁\n    Press ▎s ▎to start or ▎q ▎to quit\n          ▔▔▔             ▔▔▔\n\n\n"
+press_string = "               ▁▁▁             ▁▁▁\n         Press ▎s ▎to start or ▎q ▎to quit\n               ▔▔▔             ▔▔▔\n\n\n\n\n"
                                                                             
 def print_start():
-    print("\n\n        ┏━━━━━━━━━━━━━━┓\n        ┃     START    ┃\n        ┗━━━━━━━━━━━━━━┛\n\n\n\n\n")
+    print("\n\n\n\n                 ┏━━━━━━━━━━━━━━┓\n                 ┃     START    ┃\n                 ┗━━━━━━━━━━━━━━┛\n\n\n\n\n")
 
 def cursor_show():
     print('\033[? 25h', end="")
@@ -16,38 +16,42 @@ def cursor_hide():
 
 def intro():
 
-    cursor_hide()
-
     os.system('clear')
+    loader = ">"
     
+    print(loader)
     print_start()
-    sleep(0.3)
     print(press_string)
-    loader = ""
+    print(loader)
+    
+    sleep(0.1)
+    
+    for t in range(1,55):
 
-    nb_char = len("Press ┃s┃ to start or ┃q┃ to quit      ")
-
-    for t in range(nb_char):
-
-        if t == nb_char-1 or t == 0:
-            loader += '┃'
-
-        else:
-            loader += '='
-        
         os.system('clear')
-        print(loader)
+        
+        char = "━"
+        if (t % 2 == 0):
+            char = "="
+        
+        loader += char
+       
+        print(loader[::-1])
         print_start()
         print(press_string)
-        print(loader)
+        print(loader[::-1])
 
-        sleep(0.1)
+        sleep(0.05)
+
+    os.system('clear')
+    print("<"+loader[::-1])
+    print_start()
+    print(press_string)
+    print("<"+loader[::-1])
     
-    sleep(0.5)
+    
+    
    
-    print('\033[? 25h', end="")
-
-
 grid_list = ["6x6","10x10","12X12"]
 
 grid_list_size = len(grid_list)
@@ -105,6 +109,7 @@ def grid_dimension():
                     current_grid += 1
                 display_menu()
                 display_grid(current_grid,True)
+               
             
             elif key == Key.enter:
                 return False

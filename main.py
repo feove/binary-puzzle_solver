@@ -4,6 +4,7 @@ from pynput import keyboard # type: ignore
 
 def main():
     
+    gi.cursor_hide()
     processid = os.fork()
     if processid == 0:  
         while True:
@@ -28,8 +29,10 @@ def main():
                     os.kill(processid, 9)  
                     os.system("clear")
                     print("Exit pressed")
-                    print('\033[? 25h', end="")
+
+                    gi.cursor_show()
                     return False  
+            
                 
             except AttributeError:
                 pass
