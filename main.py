@@ -16,10 +16,9 @@ def main():
                     os.kill(processid, 9) 
                     os.system("clear")
         
-
-                    gi.grid_dimension()
-
-                    
+                    grid_chosen = gi.grid_dimension()
+                    if (grid_chosen != -1):
+                        print(grid_chosen)
 
                     gi.cursor_show()
                     return False  

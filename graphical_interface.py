@@ -1,6 +1,7 @@
 import os
+from math import *
 from time import sleep
-from pynput import keyboard # type: ignore
+from pynput.keyboard import Key, Listener 
 
 press_string = "          ▁▁▁             ▁▁▁\n    Press ▎s ▎to start or ▎q ▎to quit\n          ▔▔▔             ▔▔▔\n\n\n"
                                                                             
@@ -24,8 +25,6 @@ def intro():
     print(press_string)
     loader = ""
 
-    #id = os.fork()
-
     nb_char = len("Press ┃s┃ to start or ┃q┃ to quit      ")
 
     for t in range(nb_char):
@@ -44,38 +43,88 @@ def intro():
 
         sleep(0.1)
     
-
     sleep(0.5)
    
     print('\033[? 25h', end="")
 
-dimensions_menu = " 6x6 10x10 12X12 "
+
+grid_list = ["6x6","10x10","12X12"]
+
+grid_list_size = len(grid_list)
+
+current_grid = 0
+
+dimensions_string = "\n  "
+
+def display_menu():
+
+    os.system("clear")
+    print("Choose the grid dimension:")
+
+    
+def display_grid(current_grid,select:bool):
+
+    
+    current_grid_copy = grid_list[current_grid]
+    global dimensions_string
+
+    if select:
+        dimensions_string = "\n  "
+        for i in range(grid_list_size):
+
+            if i == current_grid:
+                grid_list[i] = "|" + grid_list[i] + "|"
+        
+            dimensions_string +=  grid_list[i]  +  "  "
+
+    print(dimensions_string)
+    grid_list[current_grid] = current_grid_copy
 
 def grid_dimension():
 
-   
-    print("Choose the grid dimension:")
 
-    print(dimensions_menu)
+
+    display_menu()
+    display_grid(current_grid,True)
 
     def on_press(key):
+
+        global current_grid
         try:
-            if key.char == 's':
-                print("10x10 Choosen")
-                return False  
-            #need to detect "ENTER" pressed !
+            if key == Key.left:
+                
+                if current_grid != 0:
+                    current_grid = current_grid-1
+                display_menu()
+                display_grid(current_grid,True)
+
+           
+            elif key == Key.right:
+                
+                if current_grid != grid_list_size-1:
+                    current_grid += 1
+                display_menu()
+                display_grid(current_grid,True)
             
-            elif key.char == 'enter':
-                print("12x12 Choosen")
-                return False  
+            elif key == Key.enter:
+                return False
+           
+            elif key.char == 'q':
+
+                current_grid = -1
+                return False
+            
+            else:
+                display_menu()
+                display_grid(current_grid,False)
+
             
         except AttributeError:
+            
             pass
             
-    
-    with keyboard.Listener(on_press=on_press) as listener:
+    with Listener(on_press = on_press) as listener:
         listener.join()
 
-   
-def grid_selction():
-    return
+    return current_grid
+
