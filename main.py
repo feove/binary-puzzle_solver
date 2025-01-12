@@ -1,5 +1,6 @@
 import os
 import graphical_interface as gi
+from time import sleep
 from pynput import keyboard # type: ignore
 
 def main():
@@ -16,10 +17,9 @@ def main():
 
                     os.kill(processid, 9) 
                     os.system("clear")
-        
-                    grid_chosen = gi.grid_dimension()
-                    if (grid_chosen != -1):
-                        print(grid_chosen)
+                    num_grid = gi.grid_dimension()
+                    
+                    gi.grid_filling(num_grid)
 
                     gi.cursor_show()
                     return False  
