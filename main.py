@@ -3,6 +3,15 @@ import graphical_interface as gi
 from time import sleep
 from pynput import keyboard # type: ignore
 
+def block():
+    for key in range(150):
+        keyboard.block_key(key)
+
+def unblock():
+    for key in range(150):
+        keyboard.unblock_key(key)
+
+
 def main():
     
     gi.cursor_hide()
@@ -21,6 +30,9 @@ def main():
                     
                     gi.grid_filling(num_grid)
                     os.system("clear")
+
+
+                    
                     gi.cursor_show()
                     return False  
                 
@@ -32,7 +44,7 @@ def main():
 
                     gi.cursor_show()
                     return False  
-            
+             
                 
             except AttributeError:
                 pass

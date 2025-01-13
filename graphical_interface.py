@@ -210,6 +210,37 @@ j = 5
 j_next = 7
 j_prev = 3
 
+def clear_colum(num_grid):
+
+    l = 1
+    end = [5,9,11][num_grid]
+    while((l-1)//2 <= end):
+        
+        grids[num_grid][l][i] = ' '   
+        l += 2
+
+def clear_line(num_grid):
+
+    c = 2
+    end = [5,9,11][num_grid]
+    while((c-2)//4 <= end):
+        
+        grids[num_grid][j][c] = ' '   
+        c += 4
+        
+def clear_grid(num_grid):
+    
+    for row in range(1, len(grids[num_grid]) - 1, 2): 
+       
+        for col_index in range(2, len(grids[num_grid][row]) - 2, 4):  
+            grids[num_grid][row][col_index] = ' ' 
+
+def example_set():
+
+    print("In developping ...")
+    sleep(2)
+    return
+
 def display_grid(num_grid):
     os.system("clear")
 
@@ -217,7 +248,7 @@ def display_grid(num_grid):
 
     grids[num_grid][j][i_next-1] = ' ' 
     grids[num_grid][j][i_next+1] = ' '
-    grids[num_grid][j][i_prev-1] = ' ' 
+    grids[num_grid][j][i_prev-1] = ' '
     grids[num_grid][j][i_prev+1] = ' ' 
 
     grids[num_grid][j_prev][i-1] = ' ' 
@@ -231,7 +262,7 @@ def display_grid(num_grid):
     for row in grids[num_grid]:
         print("".join(row))
     
-    print("\n"*5)
+    print("\n  Press 'x' to place '1'                         Press 'e' to set and example\n  Press 'c' to place '0'\n  Press 'v' to delete\n  Press 'b' to clear the line\n  Press 'g' to clear the colum\n  Press 'j' to clear the grid")
     return
 
 def grid_filling(num_grid):
@@ -255,40 +286,51 @@ def grid_filling(num_grid):
                 if i != 2:
                     i -= 4
                 
-                display_grid(num_grid)
-
-           
             elif key == Key.right:
                 
                 i_prev = i
                 if (i-2)//4 != ([5,9,11][num_grid]):
                     i += 4
-              
-                display_grid(num_grid)
 
             elif key == Key.up:
                 
                 j_prev = j
                 if j != 1:
                     j -= 2
-                
-                display_grid(num_grid)
-            
+
             elif key == Key.down:
 
                 j_next = j
                 if (j-1)//2 != ([5,9,11][num_grid]):
                     j += 2
-                display_grid(num_grid)
+              
 
             elif key == Key.enter:
                 return False
-        
+
+            elif key.char == '1' or key.char == 'x':
+
+                grids[num_grid][j][i] = '1'
+
+            elif key.char == '0' or key.char == 'c':
+                grids[num_grid][j][i] = '0'
             
-            else:
+            elif key.char == '2' or key.char == 'v':
+                grids[num_grid][j][i] = ' '
+            
+            elif key.char == 'b':
+                clear_line(num_grid)
+            
+            elif key.char == 'g':
+                clear_colum(num_grid)
 
-                display_grid(num_grid)
+            elif key.char == 'j':
+                clear_grid(num_grid)
 
+            elif key.char == 'e':
+                example_set()
+
+            display_grid(num_grid)
             
         except AttributeError:
             
@@ -297,5 +339,4 @@ def grid_filling(num_grid):
     with Listener(on_press = arrow_press) as listener:
         listener.join()
 
-    
     return num_grid
