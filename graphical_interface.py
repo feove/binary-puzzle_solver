@@ -1,5 +1,6 @@
 import os
 from math import *
+import solver
 from time import sleep
 from pynput.keyboard import Key, Listener 
 
@@ -213,12 +214,12 @@ j_next = 7
 j_prev = 3
 
 
+
 def init_matrix(size):
 
     return [[3 for _ in range(size)] for _ in range(size)]
 
-def grid_read(num_grid):
-
+def grid_reading(num_grid):
 
     M = init_matrix(grid_size[num_grid]+1)
 
@@ -233,12 +234,32 @@ def grid_read(num_grid):
             digit = grids[num_grid][row][col]
             if digit != ' ':
             
-                M[i][j] = digit
+                M[i][j] = int(digit)
             j += 1
         i += 1
              
-    print(M)
-    sleep(6)
+    for l in M:
+        print(l)
+    
+    sleep(4)
+
+
+def grid_writing(M,num_grid):
+
+    s = len(M)
+
+    if (s != len(M[0])):
+        raise TypeError("Matrix width different by the height ...") 
+    
+
+    for i in range(s):
+
+        for j in range(s):
+            
+            grids[num_grid][(i*4)+2][(j*2)+1] =  M[i][j]
+
+
+    return grids[num_grid]
 
 def clear_colum(num_grid):
 
@@ -297,6 +318,9 @@ def display_grid(num_grid):
 
 def grid_filling(num_grid):
 
+    global user_grid
+    user_grid = init_matrix(grids[num_grid])
+
     display_grid(num_grid)
 
     def arrow_press(key):
@@ -335,7 +359,13 @@ def grid_filling(num_grid):
                     j += 2
 
             elif key == Key.enter:
-                grid_read(num_grid)
+                #grid_reading(num_grid)
+                #os.system('clear')
+                #user_grid = grid_writing(solver.G_10x10_EASY,num_grid)
+                print(user_grid)
+
+                sleep(4)
+
                 return False
 
             elif key.char == '1' or key.char == 'x':
