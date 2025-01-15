@@ -4,13 +4,12 @@ from time import sleep
 from pynput import keyboard # type: ignore
 
 def block():
-    for key in range(150):
+    for key in range(150):  
         keyboard.block_key(key)
 
 def unblock():
     for key in range(150):
         keyboard.unblock_key(key)
-
 
 def main():
     
@@ -30,12 +29,9 @@ def main():
                     
                     gi.grid_filling(num_grid)
                     os.system("clear")
-
-
-                    
+ 
                     gi.cursor_show()
                     return False  
-                
                 
                 elif key.char == 'q':
                     os.kill(processid, 9)  
@@ -49,8 +45,6 @@ def main():
             except AttributeError:
                 pass
                 
-
-      
         with keyboard.Listener(on_press=on_press) as listener:
             listener.join()
 

@@ -238,28 +238,26 @@ def grid_reading(num_grid):
             j += 1
         i += 1
              
-    for l in M:
-        print(l)
-    
-    sleep(4)
+    return M
 
 
-def grid_writing(M,num_grid):
+def grid_writing(M, num_grid):
+    """Write the matrix M into the grid representation."""
+    size = len(M)
 
-    s = len(M)
+    if size != len(M[0]):
+        raise TypeError("Matrix width different from height.")
 
-    if (s != len(M[0])):
-        raise TypeError("Matrix width different by the height ...") 
-    
+    for i in range(size):
 
-    for i in range(s):
+        for j in range(size):
 
-        for j in range(s):
-            
-            grids[num_grid][(i*4)+2][(j*2)+1] =  M[i][j]
+            value = ' ' if  M[i][j] == 3 else str(M[i][j]) 
 
+            grids[num_grid][(i*2)+1][(j*4)+2] = value
 
     return grids[num_grid]
+
 
 def clear_colum(num_grid):
 
@@ -286,10 +284,14 @@ def clear_grid(num_grid):
         for col_index in range(2, len(grids[num_grid][row]) - 2, 4):  
             grids[num_grid][row][col_index] = ' ' 
 
-def example_set():
+def example_set(num_grid):
 
-    print("In developping ...")
-    sleep(2)
+    os.system('clear')
+
+    grids[num_grid] = grid_writing(solver.G_10x10_EASY,num_grid)
+
+    display_grid(num_grid)
+
     return
 
 def display_grid(num_grid):
@@ -310,16 +312,25 @@ def display_grid(num_grid):
     grids[num_grid][j][i-1] = '▸' 
     grids[num_grid][j][i+1] = '◂'
 
-    for row in grids[num_grid]:
-        print("".join(row))
+    #for row in grids[num_grid]:    
+    s = len(grids[num_grid])
+    
+    for r in range(s):
+        
+        information = ""
+        if s//2 == r+1:
+            information = "                        ┌───┐"
+        elif s//2 == r:
+            information = f"      Current Cellule : │ {grids[num_grid][j][i]} │"
+        elif s//2 == r-1:
+            information = "                        └───┘"
+
+        print("".join(grids[num_grid][r]) + information)
     
     print("\n  Press 'x' to place '1'                         Press 'e' to set and example\n  Press 'c' to place '0'\n  Press 'v' to delete\n  Press 'b' to clear the line\n  Press 'g' to clear the colum\n  Press 'j' to clear the grid")
     return
 
 def grid_filling(num_grid):
-
-    global user_grid
-    user_grid = init_matrix(grids[num_grid])
 
     display_grid(num_grid)
 
@@ -359,12 +370,10 @@ def grid_filling(num_grid):
                     j += 2
 
             elif key == Key.enter:
-                #grid_reading(num_grid)
-                #os.system('clear')
-                #user_grid = grid_writing(solver.G_10x10_EASY,num_grid)
-                print(user_grid)
+                
+                os.system('clear')
 
-                sleep(4)
+                #M = grid_reading(num_grid)
 
                 return False
 
@@ -387,9 +396,8 @@ def grid_filling(num_grid):
                 clear_grid(num_grid)
 
             elif key.char == 'e':
-                #example_set()
-                
-                sleep(4)
+
+                example_set(num_grid)
 
             display_grid(num_grid)
             
@@ -401,3 +409,7 @@ def grid_filling(num_grid):
         listener.join()
 
     return num_grid
+
+
+
+#user_grid = 

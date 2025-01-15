@@ -1,6 +1,5 @@
 from math import *
 
-print("=============================")
 
 M_Line = [3,3,3,3]
 
@@ -383,6 +382,8 @@ def all_colums_symbols_filling(M):
 
 def main(M):
     
+    print("=============================")
+    
     print(" Matrix selected :")
 
     print_grid(M,"Initial Matrix")
@@ -408,6 +409,6 @@ def main(M):
     
     print_grid(M,"Final Matrix")
 
-main(G_14x14_MEDIUM)
+    print("=============================")
 
-print("=============================")
+#main(G_14x14_MEDIUM)
