@@ -1,5 +1,6 @@
 import os
 from math import *
+import random 
 import solver
 from time import sleep
 from pynput.keyboard import Key, Listener 
@@ -201,6 +202,7 @@ grid_12x12 = [
     ['└','─','─','─','┴','─','─','─','┴','─','─','─','┴','─','─','─','┴','─','─','─','┴','─','─','─','┴','─','─','─','┴','─','─','─','┴','─','─','─','┴','─','─','─','┴','─','─','─','┴','─','─','─','┘']
 ]
 
+#Dublin Est
 
 grids = [grid_6x6,grid_10x10,grid_12x12]
 
@@ -213,11 +215,12 @@ j = 5
 j_next = 7
 j_prev = 3
 
-
+grid_sets = []
 
 def init_matrix(size):
 
     return [[3 for _ in range(size)] for _ in range(size)]
+
 
 def grid_reading(num_grid):
 
@@ -242,7 +245,7 @@ def grid_reading(num_grid):
 
 
 def grid_writing(M, num_grid):
-    """Write the matrix M into the grid representation."""
+  
     size = len(M)
 
     if size != len(M[0]):
@@ -277,18 +280,27 @@ def clear_line(num_grid):
         grids[num_grid][j][c] = ' '   
         c += 4
         
+
 def clear_grid(num_grid):
     
     for row in range(1, len(grids[num_grid]) - 1, 2): 
        
         for col_index in range(2, len(grids[num_grid][row]) - 2, 4):  
-            grids[num_grid][row][col_index] = ' ' 
+            grids[num_grid][row][col_index] = ' '
+             
+example_sets = [
+                [solver.G_6x6_EASY],
+                [solver.G_10x10_EASY,solver.G_10x10_HARD],
+                [solver.G_10x10_HARD]
+                ]
 
 def example_set(num_grid):
 
     os.system('clear')
 
-    grids[num_grid] = grid_writing(solver.G_10x10_EASY,num_grid)
+    random_grid = random.choice(example_sets[num_grid])
+
+    grids[num_grid] = grid_writing(random_grid,num_grid)
 
     display_grid(num_grid)
 
@@ -396,7 +408,6 @@ def grid_filling(num_grid):
                 clear_grid(num_grid)
 
             elif key.char == 'e':
-
                 example_set(num_grid)
 
             display_grid(num_grid)
