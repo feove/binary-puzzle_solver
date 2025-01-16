@@ -206,6 +206,8 @@ grid_12x12 = [
 
 grids = [grid_6x6,grid_10x10,grid_12x12]
 
+grids_name = ["6x6","10x10","12x12"]
+
 grid_size = [5,9,11]
 
 i = 14
@@ -311,13 +313,13 @@ def example_set(num_grid):
   
     return
 
-helpful_sentences = ["Press 'x' to place '1'","Press 'c' to place '0'","Press 'v' to delete","Press 'b' to clear the line","Press 'g' to clear the colum","Press 'j' to clear the grid","Press 'e' to set and example","Press 'ENTER' to Solve","Press 'q' to Quit"]
+helpful_sentences = ["│ Press 'x' to set '1' │","│ Press 'c' to set '0' │","│ Press 'v' to delete │","│ Press 'b' to clear the line │","│ Press 'g' to clear the colum │","│ Press 'j' to clear the grid │","│ Press 'e' to display an example │","│ Press 'ENTER' to Solve │","│ Press 'q' to Quit │"]
 
 space_between = " "*6
 
 def display_grid(num_grid,example=None):
 
-    os.system("clear")
+    os.system("clear") 
 
     if example != None:
         
@@ -343,23 +345,32 @@ def display_grid(num_grid,example=None):
     
     sentence = 0
     sentences_nb = len(helpful_sentences)
+    if (example == None):
+        up_border,down_border = "━"*(len(grids_name[num_grid])+7),"━"*(len(grids_name[num_grid])+7)                                                                                  
+        print(f"{space_between}┏"+up_border+f"┓\n{space_between}┃ {grids_name[num_grid]} grid ┃\n{space_between}┗"+down_border+"┛")
 
     for r in range(s):
         
         supp = ""
+
+        #supp = f"{space_between}└────────────────────────┘" if sentence == sentences_nb else "│                              │"
         if r >= 2 and sentence < sentences_nb:
 
+            
             if r % 2 == 0:
-
-                supp = helpful_sentences[sentence] 
+                
+                #supp = f"┌────────────────────────┐" if r == 2 else f"{helpful_sentences[sentence]}"
+                supp = helpful_sentences[sentence]
                 sentence += 1
+        
+
 
         print(space_between + "".join(grids[num_grid][r]) + space_between + supp)
 
     print(information)
 
     if (example != None):
-        sleep(2)
+        sleep(1.5)
     
     return
 
@@ -436,8 +447,8 @@ def grid_filling(num_grid):
                 clear_grid(num_grid)
                 display_grid(num_grid,e+1)
                 example_set(num_grid)
-
-            elif key.char == 'q' or key.char == 'z':
+       
+            elif key.char == 'q' or key.char == 'a':
 
                 os.system('clear')
                 return False
