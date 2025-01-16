@@ -290,7 +290,7 @@ def clear_grid(num_grid):
 example_sets = [
                 [solver.G_6x6_EASY_1,solver.G_6x6_EASY_2,solver.G_6x6_EASY_3],
                 [solver.G_10x10_EASY_1,solver.G_10x10_EASY_2,solver.G_10x10_EASY_3],
-                [solver.G_12x12_EASY_1,solver.G_12x12_EASY_2]
+                [solver.G_12x12_EASY_1,solver.G_12x12_EASY_2,solver.G_12x12_EASY_3]
             ]
 e = 0
 
@@ -304,6 +304,7 @@ def example_set(num_grid):
 
     grids[num_grid] = grid_writing(random_grid,num_grid)
 
+
     display_grid(num_grid)
 
     e = (e + 1)%len(example_sets[num_grid])
@@ -314,11 +315,14 @@ helpful_sentences = ["Press 'x' to place '1'","Press 'c' to place '0'","Press 'v
 
 space_between = " "*6
 
-def display_grid(num_grid):
+def display_grid(num_grid,example=None):
 
     os.system("clear")
 
-    print(grids[num_grid][j][i])
+    if example != None:
+        
+        print(f"{space_between}┏━━━━━━━━━━━━━┓\n{space_between}┃ Example : {example} ┃\n{space_between}┗━━━━━━━━━━━━━┛")
+        
 
     grids[num_grid][j][i_next-1] = ' ' 
     grids[num_grid][j][i_next+1] = ' '
@@ -343,7 +347,7 @@ def display_grid(num_grid):
     for r in range(s):
         
         supp = ""
-        if sentence < sentences_nb:
+        if r >= 2 and sentence < sentences_nb:
 
             if r % 2 == 0:
 
@@ -353,6 +357,9 @@ def display_grid(num_grid):
         print(space_between + "".join(grids[num_grid][r]) + space_between + supp)
 
     print(information)
+
+    if (example != None):
+        sleep(2)
     
     return
 
@@ -399,9 +406,13 @@ def grid_filling(num_grid):
                 
                 os.system('clear')
 
-                #M = grid_reading(num_grid)
+                M = grid_reading(num_grid)
+                solver.main(M)
 
-                return False
+                sleep(4)
+
+                grids[num_grid] = grid_writing(M,num_grid)
+
 
             elif key.char == '1' or key.char == 'x':
                 grids[num_grid][j][i] = '1'
@@ -422,6 +433,8 @@ def grid_filling(num_grid):
                 clear_grid(num_grid)
 
             elif key.char == 'e':
+                clear_grid(num_grid)
+                display_grid(num_grid,e+1)
                 example_set(num_grid)
 
             elif key.char == 'q' or key.char == 'z':
