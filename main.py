@@ -26,7 +26,6 @@ def main():
                     os.kill(processid, 9) 
                     os.system("clear")
                     num_grid = gi.grid_dimension()
-                    
                     gi.grid_filling(num_grid)
                     os.system("clear")
  

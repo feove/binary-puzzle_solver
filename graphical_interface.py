@@ -280,33 +280,42 @@ def clear_line(num_grid):
         grids[num_grid][j][c] = ' '   
         c += 4
         
-
 def clear_grid(num_grid):
     
     for row in range(1, len(grids[num_grid]) - 1, 2): 
-       
+        
         for col_index in range(2, len(grids[num_grid][row]) - 2, 4):  
             grids[num_grid][row][col_index] = ' '
              
 example_sets = [
-                [solver.G_6x6_EASY],
-                [solver.G_10x10_EASY,solver.G_10x10_HARD],
-                [solver.G_10x10_HARD]
-                ]
+                [solver.G_6x6_EASY_1,solver.G_6x6_EASY_2,solver.G_6x6_EASY_3],
+                [solver.G_10x10_EASY_1,solver.G_10x10_EASY_2,solver.G_10x10_EASY_3],
+                [solver.G_12x12_EASY_1,solver.G_12x12_EASY_2]
+            ]
+e = 0
 
 def example_set(num_grid):
 
+    global e
+    
     os.system('clear')
 
-    random_grid = random.choice(example_sets[num_grid])
+    random_grid = example_sets[num_grid][e]
 
     grids[num_grid] = grid_writing(random_grid,num_grid)
 
     display_grid(num_grid)
 
+    e = (e + 1)%len(example_sets[num_grid])
+  
     return
 
+helpful_sentences = ["Press 'x' to place '1'","Press 'c' to place '0'","Press 'v' to delete","Press 'b' to clear the line","Press 'g' to clear the colum","Press 'j' to clear the grid","Press 'e' to set and example","Press 'ENTER' to Solve","Press 'q' to Quit"]
+
+space_between = " "*6
+
 def display_grid(num_grid):
+
     os.system("clear")
 
     print(grids[num_grid][j][i])
@@ -323,23 +332,28 @@ def display_grid(num_grid):
     
     grids[num_grid][j][i-1] = '▸' 
     grids[num_grid][j][i+1] = '◂'
-
-    #for row in grids[num_grid]:    
+ 
     s = len(grids[num_grid])
+
+    information = f"\n                        ┌───┐\n      Current Cellule : │ {grids[num_grid][j][i]} │\n                        └───┘"
     
+    sentence = 0
+    sentences_nb = len(helpful_sentences)
+
     for r in range(s):
         
-        information = ""
-        if s//2 == r+1:
-            information = "                        ┌───┐"
-        elif s//2 == r:
-            information = f"      Current Cellule : │ {grids[num_grid][j][i]} │"
-        elif s//2 == r-1:
-            information = "                        └───┘"
+        supp = ""
+        if sentence < sentences_nb:
 
-        print("".join(grids[num_grid][r]) + information)
+            if r % 2 == 0:
+
+                supp = helpful_sentences[sentence] 
+                sentence += 1
+
+        print(space_between + "".join(grids[num_grid][r]) + space_between + supp)
+
+    print(information)
     
-    print("\n  Press 'x' to place '1'                         Press 'e' to set and example\n  Press 'c' to place '0'\n  Press 'v' to delete\n  Press 'b' to clear the line\n  Press 'g' to clear the colum\n  Press 'j' to clear the grid")
     return
 
 def grid_filling(num_grid):
@@ -409,6 +423,11 @@ def grid_filling(num_grid):
 
             elif key.char == 'e':
                 example_set(num_grid)
+
+            elif key.char == 'q' or key.char == 'z':
+
+                os.system('clear')
+                return False
 
             display_grid(num_grid)
             
