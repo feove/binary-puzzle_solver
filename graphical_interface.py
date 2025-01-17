@@ -313,7 +313,7 @@ def example_set(num_grid):
   
     return
 
-helpful_sentences = ["│ Press 'x' to set '1' │","│ Press 'c' to set '0' │","│ Press 'v' to delete │","│ Press 'b' to clear the line │","│ Press 'g' to clear the colum │","│ Press 'j' to clear the grid │","│ Press 'e' to display an example │","│ Press 'ENTER' to Solve │","│ Press 'q' to Quit │"]
+helpful_sentences = ["│  Press 'x' to set '1'            │","│  Press 'c' to set '0'            │","│  Press 'v' to delete             │","│  Press 'b' to clear the line     │","│  Press 'g' to clear the colum    │","│  Press 'j' to clear the grid     │","│  Press 'e' to display an example │","│  Press 'ENTER' to Solve          │","│  Press 'q' to Quit               │"]
 
 space_between = " "*6
 
@@ -351,21 +351,20 @@ def display_grid(num_grid,example=None):
 
     for r in range(s):
         
-        supp = ""
+        supp = "" 
 
         #supp = f"{space_between}└────────────────────────┘" if sentence == sentences_nb else "│                              │"
-        if r >= 2 and sentence < sentences_nb:
+        if sentence < sentences_nb:
 
+               
+            #supp = f"┌────────────────────────┐" if r == 2 else f"{helpful_sentences[sentence]}"
+            supp = helpful_sentences[sentence] if r % 2 == 0 else "│                                  │"
             
-            if r % 2 == 0:
-                
-                #supp = f"┌────────────────────────┐" if r == 2 else f"{helpful_sentences[sentence]}"
-                supp = helpful_sentences[sentence]
-                sentence += 1
-        
-
+            sentence = sentence+1 if  r % 2 == 0 else sentence
+            
 
         print(space_between + "".join(grids[num_grid][r]) + space_between + supp)
+       
 
     print(information)
 
