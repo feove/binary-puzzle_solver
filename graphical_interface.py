@@ -51,8 +51,6 @@ def intro():
     print(press_string)
     print("<"+loader[::-1])
     
-    
-    
    
 grid_list = ["6x6","10x10","12X12"]
 
@@ -70,7 +68,6 @@ def display_menu():
     
 def display_grid_lists(current_grid,select:bool):
 
-    
     current_grid_copy = grid_list[current_grid]
     global dimensions_string
 
@@ -313,7 +310,7 @@ def example_set(num_grid):
   
     return
 
-helpful_sentences = ["│  Press 'x' to set '1'            │","│  Press 'c' to set '0'            │","│  Press 'v' to delete             │","│  Press 'b' to clear the line     │","│  Press 'g' to clear the colum    │","│  Press 'j' to clear the grid     │","│  Press 'e' to display an example │","│  Press 'ENTER' to Solve          │","│  Press 'q' to Quit               │"]
+helpful_sentences = ["┌──────────────────────────────────┐","│  Press 'x' to set '1'            │","│  Press 'c' to set '0'            │","│  Press 'v' to delete             │","│  Press 'b' to clear the line     │","│  Press 'g' to clear the colum    │","│  Press 'j' to clear the grid     │","│  Press 'e' to display an example │","│  Press 'ENTER' to Solve          │","│  Press 'q' to Quit               │","└──────────────────────────────────┘"]
 
 space_between = " "*6
 
