@@ -52,7 +52,7 @@ def intro():
     print("<"+loader[::-1])
     
    
-grid_list = ["6x6","10x10","12X12"]
+grid_list = ["  6x6  "," 10x10 "," 12x12 "," 14x14 ","  8x8  "]
 
 grid_list_size = len(grid_list)
 
@@ -63,7 +63,7 @@ dimensions_string = "\n  "
 def display_menu():
 
     os.system("clear")
-    print("Choose the grid dimension:")
+    print("\n     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n     ┃ Choose the grid dimension: ┃\n     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n\n")
 
     
 def display_grid_lists(current_grid,select:bool):
@@ -72,15 +72,17 @@ def display_grid_lists(current_grid,select:bool):
     global dimensions_string
 
     if select:
-        dimensions_string = "\n  "
+        dimensions_string = "  " + " "*9*current_grid + "┌───────┐" +"\n  "
+
         for i in range(grid_list_size):
 
             if i == current_grid:
-                grid_list[i] = "|" + grid_list[i] + "|"
+                grid_list[i] = "│" + grid_list[i] + "│"
         
             dimensions_string +=  grid_list[i]  +  "  "
+        dimensions_string += "\n  " + " "*9*current_grid + "└───────┘"
 
-    print(dimensions_string)
+    print(dimensions_string, end="\n"*5)
     grid_list[current_grid] = current_grid_copy
 
 def grid_dimension():
@@ -361,7 +363,10 @@ def display_grid(num_grid,example=None):
             
 
         print(space_between + "".join(grids[num_grid][r]) + space_between + supp)
-       
+    
+    if (current_grid == 0): #Hard code
+        print(" "*37 +"│                                  │\n" +" "*37+"└──────────────────────────────────┘")
+
 
     print(information)
 
