@@ -1,6 +1,5 @@
 import os
 from math import *
-import random 
 import grid_storage
 import solver
 from time import sleep
@@ -9,7 +8,7 @@ from pynput.keyboard import Key, Listener
 press_string = "               ┌───┐             ┌───┐\n         Press │ s │ to start or │ q │ to quit\n               └───┘             └───┘\n\n\n\n\n"
                                                                             
 def print_start():
-    print("\n\n\n\n                 ┏━━━━━━━━━━━━━━━┓\n                 ┃     START     ┃\n                 ┗━━━━━━━━━━━━━━━┛\n\n\n\n\n")
+    print("\n\n\n\n                 ┏━━━━━━━━━━━━━━━━━┓\n                 ┃     WELCOME     ┃\n                 ┗━━━━━━━━━━━━━━━━━┛\n\n\n\n\n")
 
 def cursor_show():
     print('\033[? 25h', end="")
@@ -20,21 +19,11 @@ def cursor_hide():
 def intro():
 
     os.system('clear')
-    loader = ">"
-    
-    print(loader)
+ 
     print_start()
     print(press_string)
-    print(loader)
-    
     sleep(0.1)
 
-    os.system('clear')
-
-    print(loader[::-1])
-    print_start()
-    print(press_string)
-    print(loader[::-1])
 
    
 grid_list = ["  6x6  ","  8x8  "," 10x10 "," 12x12 "," 14x14 "]
