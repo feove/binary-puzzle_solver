@@ -26,9 +26,21 @@ intro_margin_top = "\n"*2
 
 def random_symbols():
 
-
-
     return random.choice([' ',' ',' ',' ','1','0'])
+
+def line_void_check(row,start,jump,end):
+
+    for i in range(start,end,jump):
+
+        if row[i] != ' ':
+            return False
+
+    return True
+
+def random_line_filling(row,start,jump,end,random,char=None):
+
+    for i in range(start,end,jump):
+        row[i] = random_symbols() if random else char
 
 def intro_grid_fill(random:bool,char=None):
 
@@ -39,12 +51,13 @@ def intro_grid_fill(random:bool,char=None):
 
     while (c <= end_col):
         
-        while (r <= end_row):
-            
-
-            introduction_board.G_intro_board[c][r] = random_symbols() if random else char
-            r += 4
+        random_line_filling(introduction_board.G_intro_board[c],r,4,end_row,random,char)
         
+        if line_void_check(introduction_board.G_intro_board[c],r,4,end_row):
+           
+            
+            random_line_filling(introduction_board.G_intro_board[c],r,4,end_row,random,char)
+            
         r = 35
         c += 2
 
@@ -53,7 +66,6 @@ def intro_display():
 
     print(intro_margin_top)
     
-
     for row in introduction_board.G_intro_board:
         
         print(intro_margin_right +  "".join(row))
@@ -68,15 +80,13 @@ def intro():
     intro_grid_fill(False,' ')
     intro_display()
     
-    sleep(1)
+    sleep(0.5)
 
     os.system('clear')
 
     intro_grid_fill(True)
     intro_display()
     sleep(1)
-    
-
 
    
 grid_list = ["  6x6  ","  8x8  "," 10x10 "," 12x12 "," 14x14 "]
