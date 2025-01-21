@@ -36,7 +36,10 @@ def line_void_check(row,start,jump,end):
 def random_line_filling(row,start,jump,end,random,char=None):
 
     for i in range(start,end,jump):
-        row[i] = random_symbols() if random else char
+
+        random_symbol = random_symbols()
+        c =  colored(random_symbol, 'yellow') if random_symbol == '1' else colored(random_symbol, 'cyan')
+        row[i] = c
 
 def intro_grid_fill(random:bool,char=None):
 
@@ -77,7 +80,7 @@ def intro():
     intro_grid_fill(False,' ')
     intro_display()
     
-    sleep(0.5)
+    sleep(1)
 
     os.system('clear')
 
