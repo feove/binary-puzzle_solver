@@ -2,6 +2,8 @@ import os
 from math import *
 import grid_storage
 import solver
+import introduction_board
+import random
 from time import sleep
 from pynput.keyboard import Key, Listener 
 
@@ -16,13 +18,64 @@ def cursor_show():
 def cursor_hide():
     print('\033[? 25l', end="")
 
+intro_margin_right = " "*10
+intro_margin_top = "\n"*2
+
+#33 = 0r
+#10 = 0c
+
+def random_symbols():
+
+
+
+    return random.choice([' ',' ',' ',' ','1','0'])
+
+def intro_grid_fill(random:bool,char=None):
+
+    r = 35
+    c = 11
+    end_row = 47
+    end_col= 17
+
+    while (c <= end_col):
+        
+        while (r <= end_row):
+            
+
+            introduction_board.G_intro_board[c][r] = random_symbols() if random else char
+            r += 4
+        
+        r = 35
+        c += 2
+
+
+def intro_display():
+
+    print(intro_margin_top)
+    
+
+    for row in introduction_board.G_intro_board:
+        
+        print(intro_margin_right +  "".join(row))
+
+    print(intro_margin_top)
+
+
 def intro():
+    
+    os.system('clear')
+
+    intro_grid_fill(False,' ')
+    intro_display()
+    
+    sleep(1)
 
     os.system('clear')
- 
-    print_start()
-    print(press_string)
-    sleep(0.1)
+
+    intro_grid_fill(True)
+    intro_display()
+    sleep(1)
+    
 
 
    
