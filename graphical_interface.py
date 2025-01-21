@@ -4,13 +4,9 @@ import grid_storage
 import solver
 import introduction_board
 import random
+from termcolor import colored
 from time import sleep
 from pynput.keyboard import Key, Listener 
-
-press_string = "               ┌───┐             ┌───┐\n         Press │ s │ to start or │ q │ to quit\n               └───┘             └───┘\n\n\n\n\n"
-                                                                            
-def print_start():
-    print("\n\n\n\n                 ┏━━━━━━━━━━━━━━━━━┓\n                 ┃     WELCOME     ┃\n                 ┗━━━━━━━━━━━━━━━━━┛\n\n\n\n\n")
 
 def cursor_show():
     print('\033[? 25h', end="")
@@ -60,6 +56,7 @@ def intro_grid_fill(random:bool,char=None):
             
         r = 35
         c += 2
+
 
 
 def intro_display():
