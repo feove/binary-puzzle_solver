@@ -23,5 +23,6 @@ python3 main.py
 ## Screenshots
 ![Binary Puzzle Solver Screenshot](assets/screenshot_1.png "Binary Puzzle Solver in Action")
 ![Binary Puzzle Solver Screenshot](assets/screenshot_2.png "Binary Puzzle Solver in Action")
+![Binary Puzzle Solver Screenshot](assets/screenshot_3.png "Binary Puzzle Solver in Action")
 
 
