@@ -1,6 +1,7 @@
 import os
 from math import *
 import copy
+import re
 import grid_storage
 import solver
 import introduction_board
@@ -233,27 +234,30 @@ def init_matrix(size):
 
     return [[3 for _ in range(size)] for _ in range(size)]
 
+def strip_ansi_sequences(text):
+   
+    ansi_escape = re.compile(r'\x1b\[[0-9;]*m')
+    return ansi_escape.sub('', text)
 
 def grid_reading(num_grid):
-
-    M = init_matrix(grid_size[num_grid]+1)
+    M = init_matrix(grid_size[num_grid] + 1)
 
     i = 0
     j = 0
 
     for row in range(1, len(grids[num_grid]) - 1, 2): 
-        
         j = 0
         for col in range(2, len(grids[num_grid][row]) - 2, 4):  
-            
             digit = grids[num_grid][row][col]
             if digit != ' ':
-            
-                M[i][j] = int(digit)
+                
+                clean_digit = strip_ansi_sequences(digit)
+                M[i][j] = int(clean_digit)
             j += 1
         i += 1
              
     return M
+
 
 
 def grid_writing(M, num_grid,solution=False,M_prev=None):
@@ -314,7 +318,6 @@ example_sets = [
                 [grid_storage.G_12x12_EASY_1,grid_storage.G_12x12_EASY_2,grid_storage.G_12x12_EASY_3],
                 [grid_storage.G_14x14_EASY_1,grid_storage.G_14x14_MEDIUM,grid_storage.G_14x14_EASY_3]
             ]
-
 e = 0
 
 def example_set(num_grid):
@@ -356,14 +359,14 @@ def solving_animation(num_grid):
     sleep(0.4)
     loading_buffer += "["
     lb_length = len(loading_buffer)
-    loading_buffer += "      ]"
+    loading_buffer += "                             ]"
     display_grid(num_grid,None,loading_buffer)
     
-    for i in range(6):
+    for i in range(len("                             ]")-1):
 
         loading_buffer = replacer(loading_buffer,"#",i+lb_length)
         display_grid(num_grid,None,loading_buffer)
-        sleep(0.2)
+        sleep(0.1)
 
     sleep(0.5)
     
