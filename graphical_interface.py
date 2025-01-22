@@ -329,7 +329,29 @@ helpful_sentences = ["┌──────────────────�
 nb_space = 6
 space_between = " "*nb_space
 
-def display_grid(num_grid,example=None):
+
+def solving_animation(num_grid):
+
+    loading_buffer = "loading ..."
+    
+    display_grid(num_grid,None,loading_buffer)
+
+    sleep(0.4)
+    loading_buffer += "  [      ]"
+    display_grid(num_grid,None,loading_buffer)
+    
+    for i in range(4):
+
+        loading_buffer[i+3] = '#'
+        display_grid(num_grid,None,loading_buffer)
+        sleep(0.1)
+    
+    
+    display_grid(num_grid)
+
+    return
+
+def display_grid(num_grid,example=None,loading=""):
 
     os.system("clear") 
 
@@ -337,7 +359,6 @@ def display_grid(num_grid,example=None):
         
         print(f"{space_between}┏━━━━━━━━━━━━━┓\n{space_between}┃ Example : {example} ┃\n{space_between}┗━━━━━━━━━━━━━┛")
         
-
     grids[num_grid][j][i_next-1] = ' ' 
     grids[num_grid][j][i_next+1] = ' '
     grids[num_grid][j][i_prev-1] = ' '
@@ -353,7 +374,7 @@ def display_grid(num_grid,example=None):
  
     s = len(grids[num_grid])
 
-    information = f"\n                        ┌───┐\n      Current Cellule : │ {grids[num_grid][j][i]} │\n                        └───┘"
+    information = "\n                        ┌───┐" +"\n" + f"      Current Cellule : │ {grids[num_grid][j][i]} │ "+ loading + "\n" +"                        └───┘" 
     
     sentence = 0
     sentences_nb = len(helpful_sentences)
@@ -366,13 +387,11 @@ def display_grid(num_grid,example=None):
         supp = "" 
 
         if sentence < sentences_nb:
-
    
             supp = helpful_sentences[sentence] if r % 2 == 0 else "│                                  │"
             
             sentence = sentence+1 if  r % 2 == 0 else sentence
             
-
         print(space_between + "".join(grids[num_grid][r]) + space_between + supp)
   
     if (sentence < sentences_nb):
@@ -435,14 +454,13 @@ def grid_filling(num_grid):
 
             elif key == Key.enter:
                 
-                os.system('clear')
+                solving_animation(num_grid)
 
                 M = grid_reading(num_grid)
                 solver.main(M)
 
-                sleep(4)
-
                 grids[num_grid] = grid_writing(M,num_grid)
+
 
 
             elif key.char == '1' or key.char == 'x':
@@ -484,7 +502,3 @@ def grid_filling(num_grid):
         listener.join()
 
     return num_grid
-
-
-
-#user_grid = 

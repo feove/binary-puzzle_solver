@@ -168,11 +168,11 @@ def all_colums_symbols_filling(M):
 
 def main(M):
     
-    print("=============================")
+    #print("=============================")
     
-    print(" Matrix selected :")
+    #print(" Matrix selected :")
 
-    print_grid(M,"Initial Matrix")
+    #print_grid(M,"Initial Matrix")
   
     global global_edited
     count = 0
@@ -193,9 +193,9 @@ def main(M):
         if (M == lasted_grid):
             count += 1
     
-    print_grid(M,"Final Matrix")
+    #print_grid(M,"Final Matrix")
 
-    print("=============================")
+    #print("=============================")
 
 
 #main(G_10x10_EASY)
