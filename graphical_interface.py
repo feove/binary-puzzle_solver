@@ -1,5 +1,6 @@
 import os
 from math import *
+import copy
 import grid_storage
 import solver
 import introduction_board
@@ -255,7 +256,7 @@ def grid_reading(num_grid):
     return M
 
 
-def grid_writing(M, num_grid):
+def grid_writing(M, num_grid,solution=False,M_prev=None):
   
     size = len(M)
 
@@ -267,6 +268,14 @@ def grid_writing(M, num_grid):
         for j in range(size):
 
             value = ' ' if  M[i][j] == 3 else str(M[i][j]) 
+
+            if M_prev is not None and M[i][j] != M_prev[i][j]:
+                
+                if M[i][j] == 1:
+                    value = colored(value, "yellow")
+                if M[i][j] == 0:
+                    value = colored(value, "red")
+                
 
             grids[num_grid][(i*2)+1][(j*4)+2] = value
 
@@ -329,23 +338,34 @@ helpful_sentences = ["┌──────────────────�
 nb_space = 6
 space_between = " "*nb_space
 
+def replacer(s, newstring, index, nofail=False):
+    
+    if index < 0:  
+        return newstring + s
+    if index > len(s):  
+        return s + newstring
+
+    return s[:index] + newstring + s[index + 1:]
 
 def solving_animation(num_grid):
 
-    loading_buffer = "loading ..."
+    loading_buffer = "  Solving ...   "
     
     display_grid(num_grid,None,loading_buffer)
 
     sleep(0.4)
-    loading_buffer += "  [      ]"
+    loading_buffer += "["
+    lb_length = len(loading_buffer)
+    loading_buffer += "      ]"
     display_grid(num_grid,None,loading_buffer)
     
-    for i in range(4):
+    for i in range(6):
 
-        loading_buffer[i+3] = '#'
+        loading_buffer = replacer(loading_buffer,"#",i+lb_length)
         display_grid(num_grid,None,loading_buffer)
-        sleep(0.1)
-    
+        sleep(0.2)
+
+    sleep(0.5)
     
     display_grid(num_grid)
 
@@ -358,6 +378,8 @@ def display_grid(num_grid,example=None,loading=""):
     if example != None:
         
         print(f"{space_between}┏━━━━━━━━━━━━━┓\n{space_between}┃ Example : {example} ┃\n{space_between}┗━━━━━━━━━━━━━┛")
+        loading = "  ⟳ loading ... "
+        
         
     grids[num_grid][j][i_next-1] = ' ' 
     grids[num_grid][j][i_next+1] = ' '
@@ -385,7 +407,6 @@ def display_grid(num_grid,example=None,loading=""):
     for r in range(s):
         
         supp = "" 
-
         if sentence < sentences_nb:
    
             supp = helpful_sentences[sentence] if r % 2 == 0 else "│                                  │"
@@ -404,7 +425,7 @@ def display_grid(num_grid,example=None,loading=""):
             sentence += 1
 
     if (num_grid != 4):
-
+        
         print(information)
 
     if (example != None):
@@ -454,14 +475,16 @@ def grid_filling(num_grid):
 
             elif key == Key.enter:
                 
-                solving_animation(num_grid)
+                if (num_grid != 4):solving_animation(num_grid)
 
                 M = grid_reading(num_grid)
+
+                M_prev = copy.deepcopy(M)
+
+
                 solver.main(M)
 
-                grids[num_grid] = grid_writing(M,num_grid)
-
-
+                grids[num_grid] = grid_writing(M,num_grid,True,M_prev)
 
             elif key.char == '1' or key.char == 'x':
                 grids[num_grid][j][i] = '1'
@@ -482,10 +505,10 @@ def grid_filling(num_grid):
                 clear_grid(num_grid)
 
             elif key.char == 'e':
+
                 clear_grid(num_grid)
                 display_grid(num_grid,e+1)
                 example_set(num_grid)
-                
        
             elif key.char == 'q' or key.char == 'a':
 

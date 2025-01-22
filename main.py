@@ -1,7 +1,8 @@
 import os
 import signal
 import graphical_interface as gi
-from pynput import keyboard  # type: ignore
+from pynput import keyboard
+from pynput.keyboard import Key  
 from time import sleep
 
 def main():
@@ -19,7 +20,7 @@ def main():
     else:
         def on_press(key):
             try:
-                if key.char == 's': 
+                if key.char == 's' or key == Key.enter: 
                     os.kill(processid, signal.SIGTERM)
                     os.system("clear")
                     num_grid = gi.grid_dimension()

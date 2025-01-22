@@ -179,7 +179,7 @@ def main(M):
     while(all_lines_symbols_filling(M)):
 
         if (count == 20):
-            print("Need an other way to resolve")
+            
             break
 
         lasted_grid = M      
