@@ -27,7 +27,8 @@ def colorise_vertical_side(start, end, i, reset, color=None):
 
         c = introduction_board.G_intro_board[j][i] 
         if reset:
-            Fore.WHITE  + introduction_board.G_intro_board[j][i] + Style.RESET_ALL
+            #Doing nothing
+            Fore.WHITE + introduction_board.G_intro_board[j][i] + Style.RESET_ALL  #Rtfm, it'll learn you nothing
         else:
             introduction_board.G_intro_board[j][i] = colored(c, color)
 
@@ -37,7 +38,7 @@ def colorise_horizontal_side(reset, start, end, j, color=None):
 
         c = introduction_board.G_intro_board[j][i]  
 
-        introduction_board.G_intro_board[j][i] = colored(c, "black") if reset else colored(c, color)
+        introduction_board.G_intro_board[j][i] = colored(c, "white") if reset else colored(c, color)
         
 
 def big_rec_edit(reset:bool,color=None):
@@ -53,9 +54,6 @@ def big_rec_edit(reset:bool,color=None):
     colorise_vertical_side(tl_corner[0], bl_corner[0], tl_corner[1], reset, color)  # Left side
     colorise_vertical_side(tr_corner[0], br_corner[0], tr_corner[1], reset, color)  # Right side
 
-    return
-
-def small_rec_edit(color):
     return
 
 def random_symbols():
@@ -132,9 +130,6 @@ def intro():
     
     
     sleep(1)    
-
-
-
    
 grid_list = ["  6x6  ","  8x8  "," 10x10 "," 12x12 "," 14x14 "]
 
@@ -218,11 +213,11 @@ def grid_dimension():
 
 #Dublin Est
 
-grids = [grid_storage.grid_6x6,grid_storage.grid_8x8,grid_storage.grid_10x10,grid_storage.grid_12x12]
+grids = [grid_storage.grid_6x6,grid_storage.grid_8x8,grid_storage.grid_10x10,grid_storage.grid_12x12,grid_storage.grid_14x14]
 
-grids_name = ["6x6","8x8","10x10","12x12"]
+grids_name = ["6x6","8x8","10x10","12x12","14x14"]
 
-grid_size = [5,7,9,11]
+grid_size = [5,7,9,11,13]
 
 i = 14
 i_prev = 2
@@ -303,13 +298,14 @@ def clear_grid(num_grid):
         for col_index in range(2, len(grids[num_grid][row]) - 2, 4):  
             grids[num_grid][row][col_index] = ' '
 
- 
 example_sets = [
                 [grid_storage.G_6x6_EASY_1,grid_storage.G_6x6_EASY_2,grid_storage.G_6x6_EASY_3],
                 [grid_storage.G_8x8_EASY_1,grid_storage.G_8x8_EASY_2],
                 [grid_storage.G_10x10_EASY_1,grid_storage.G_10x10_EASY_2,grid_storage.G_10x10_EASY_3],
-                [grid_storage.G_12x12_EASY_1,grid_storage.G_12x12_EASY_2,grid_storage.G_12x12_EASY_3]
+                [grid_storage.G_12x12_EASY_1,grid_storage.G_12x12_EASY_2,grid_storage.G_12x12_EASY_3],
+                [grid_storage.G_14x14_EASY_1,grid_storage.G_14x14_MEDIUM,grid_storage.G_14x14_EASY_3]
             ]
+
 e = 0
 
 def example_set(num_grid):
@@ -388,8 +384,9 @@ def display_grid(num_grid,example=None):
             print(" "*mg + f"{helpful_sentences[sentence]}")
             sentence += 1
 
-        
-    print(information)
+    if (num_grid != 4):
+
+        print(information)
 
     if (example != None):
         sleep(1.5)

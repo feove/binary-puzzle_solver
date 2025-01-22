@@ -11,6 +11,16 @@ This project is a Python-based binary puzzle solver. It utilizes Unicode charact
     ```bash
     python3 --version
     ```
+- **Pyinput**: This project requires pyinput library.
+
+    ```bash
+    pip install pynput none
+    ```
+- **Colorama**: This project requires colorama library.
+
+    ```bash
+    sudo -H pip install colorama
+    ```
 
 ## Running the Program
 
