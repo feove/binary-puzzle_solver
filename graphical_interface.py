@@ -4,6 +4,7 @@ import grid_storage
 import solver
 import introduction_board
 import random
+from colorama import Fore, Back, Style
 from termcolor import colored
 from time import sleep
 from pynput.keyboard import Key, Listener 
@@ -15,10 +16,47 @@ def cursor_hide():
     print('\033[? 25l', end="")
 
 intro_margin_right = " "*10
-intro_margin_top = "\n"*2
+intro_margin_top = "\n"*1
 
 #33 = 0r
 #10 = 0c
+
+def colorise_vertical_side(start, end, i, reset, color=None):
+   
+    for j in range(start, end + 1):
+
+        c = introduction_board.G_intro_board[j][i] 
+        if reset:
+            Fore.WHITE  + introduction_board.G_intro_board[j][i] + Style.RESET_ALL
+        else:
+            introduction_board.G_intro_board[j][i] = colored(c, color)
+
+def colorise_horizontal_side(reset, start, end, j, color=None):
+
+    for i in range(start, end + 1):
+
+        c = introduction_board.G_intro_board[j][i]  
+
+        introduction_board.G_intro_board[j][i] = colored(c, "black") if reset else colored(c, color)
+        
+
+def big_rec_edit(reset:bool,color=None):
+
+    tl_corner = [3, 17]
+    tr_corner = [3, 33]
+    bl_corner = [7, 17]
+    br_corner = [7, 33]
+
+    colorise_horizontal_side(reset, tl_corner[1], tr_corner[1], tl_corner[0], color)  # Top side
+    colorise_horizontal_side(reset, bl_corner[1], br_corner[1], bl_corner[0], color)  # Bottom side
+
+    colorise_vertical_side(tl_corner[0], bl_corner[0], tl_corner[1], reset, color)  # Left side
+    colorise_vertical_side(tr_corner[0], br_corner[0], tr_corner[1], reset, color)  # Right side
+
+    return
+
+def small_rec_edit(color):
+    return
 
 def random_symbols():
 
@@ -38,7 +76,7 @@ def random_line_filling(row,start,jump,end,random,char=None):
     for i in range(start,end,jump):
 
         random_symbol = random_symbols()
-        c =  colored(random_symbol, 'yellow') if random_symbol == '1' else colored(random_symbol, 'cyan')
+        c =  colored(random_symbol, "yellow") if random_symbol == '1' else colored(random_symbol, "cyan")
         row[i] = c
 
 def intro_grid_fill(random:bool,char=None):
@@ -54,13 +92,10 @@ def intro_grid_fill(random:bool,char=None):
         
         if line_void_check(introduction_board.G_intro_board[c],r,4,end_row):
            
-            
             random_line_filling(introduction_board.G_intro_board[c],r,4,end_row,random,char)
             
         r = 35
         c += 2
-
-
 
 def intro_display():
 
@@ -77,16 +112,28 @@ def intro():
     
     os.system('clear')
 
+    #small_rec_edit('yellow')
+
     intro_grid_fill(False,' ')
+    big_rec_edit(False,"grey")
+    
     intro_display()
+
     
     sleep(1)
 
     os.system('clear')
 
+    #small_rec_edit('white')
+
+    big_rec_edit(True)
     intro_grid_fill(True)
     intro_display()
-    sleep(1)
+    
+    
+    sleep(1)    
+
+
 
    
 grid_list = ["  6x6  ","  8x8  "," 10x10 "," 12x12 "," 14x14 "]
@@ -140,7 +187,7 @@ def grid_dimension():
 
            
             elif key == Key.right:
-                
+                'green'
                 if current_grid != grid_list_size-1:
                     current_grid += 1
                 display_menu()
@@ -369,6 +416,7 @@ def grid_filling(num_grid):
                 i_next = i
                 if i != 2:
                     i -= 4
+                    
                 
             elif key == Key.right:
                 
@@ -422,6 +470,7 @@ def grid_filling(num_grid):
                 clear_grid(num_grid)
                 display_grid(num_grid,e+1)
                 example_set(num_grid)
+                
        
             elif key.char == 'q' or key.char == 'a':
 
