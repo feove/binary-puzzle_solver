@@ -65,7 +65,7 @@ def print_grid(M,name=None,M_result=None,M_result_name=None):   #print the matri
 global_edited = True
 
 def three_symbols_resolve(a:int,b:int,c:int):
-
+    
     sum = a+b+c 
     if (sum == 3 or sum == 5):
 
@@ -165,7 +165,9 @@ def all_colums_symbols_filling(M):
     for c in range(len(M[0])):
         colum_filling(M,c)
 
+def erros_case(M):
 
+    return
 
 def main(M):
     
