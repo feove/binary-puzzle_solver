@@ -21,6 +21,7 @@ def main():
         def on_press(key):
             try:
                 if key.char == 's' or key == Key.enter: 
+                    
                     os.kill(processid, signal.SIGTERM)
                     os.system("clear")
                     num_grid = gi.grid_dimension()

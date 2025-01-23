@@ -278,7 +278,7 @@ def grid_writing(M, num_grid,solution=False,M_prev=None):
                 if M[i][j] == 1:
                     value = colored(value, "yellow")
                 if M[i][j] == 0:
-                    value = colored(value, "red")
+                    value = colored(value, "cyan")
                 
 
             grids[num_grid][(i*2)+1][(j*4)+2] = value
@@ -313,7 +313,7 @@ def clear_grid(num_grid):
 
 example_sets = [
                 [grid_storage.G_6x6_EASY_1,grid_storage.G_6x6_EASY_2,grid_storage.G_6x6_EASY_3],
-                [grid_storage.G_8x8_EASY_1,grid_storage.G_8x8_EASY_2],
+                [grid_storage.G_8x8_EASY_1,grid_storage.G_8x8_EASY_2,grid_storage.G_8x8_EASY_3],
                 [grid_storage.G_10x10_EASY_1,grid_storage.G_10x10_EASY_2,grid_storage.G_10x10_EASY_3],
                 [grid_storage.G_12x12_EASY_1,grid_storage.G_12x12_EASY_2,grid_storage.G_12x12_EASY_3],
                 [grid_storage.G_14x14_EASY_1,grid_storage.G_14x14_MEDIUM,grid_storage.G_14x14_EASY_3]
@@ -337,7 +337,7 @@ def example_set(num_grid):
   
     return
 
-helpful_sentences = ["┌──────────────────────────────────┐","│  Press 'x' to set '1'            │","│  Press 'c' to set '0'            │","│  Press 'v' to delete             │","│  Press 'b' to clear the line     │","│  Press 'g' to clear the colum    │","│  Press 'j' to clear the grid     │","│  Press 'e' to display an example │","│  Press 'ENTER' to Solve          │","│  Press 'q' to Quit               │","└──────────────────────────────────┘"]
+helpful_sentences = ["┌──────────────────────────────────┐",f"│  Press {colored("X","yellow")} to set {colored("1","yellow")}                │",f"│  Press {colored("C","cyan")} to set {colored("0","cyan")}                │",f"│  Press {colored("V","light_red")}  to delete              │","│  Press 'b' to clear the line     │","│  Press 'g' to clear the colum    │","│  Press 'j' to clear the grid     │","│  Press 'e' to display an example │","│  Press 'ENTER' to Solve          │","│  Press 'q' to Quit               │","└──────────────────────────────────┘"]
 nb_space = 6
 space_between = " "*nb_space
 
@@ -359,10 +359,11 @@ def solving_animation(num_grid):
     sleep(0.4)
     loading_buffer += "["
     lb_length = len(loading_buffer)
-    loading_buffer += "                             ]"
+    end_buffer = ".......................]"
+    loading_buffer += end_buffer
     display_grid(num_grid,None,loading_buffer)
     
-    for i in range(len("                             ]")-1):
+    for i in range(len(end_buffer)-1):
 
         loading_buffer = replacer(loading_buffer,"#",i+lb_length)
         display_grid(num_grid,None,loading_buffer)
@@ -433,6 +434,8 @@ def display_grid(num_grid,example=None,loading=""):
 
     if (example != None):
         sleep(1.5)
+    print("\n    - Zoom in the terminal if the grid is distorted")
+
     
     return
 
@@ -456,8 +459,7 @@ def grid_filling(num_grid):
                 i_next = i
                 if i != 2:
                     i -= 4
-                    
-                
+                     
             elif key == Key.right:
                 
                 i_prev = i
