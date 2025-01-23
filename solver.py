@@ -64,8 +64,15 @@ def print_grid(M,name=None,M_result=None,M_result_name=None):   #print the matri
 
 global_edited = True
 
-def three_symbols_resolve(a:int,b:int,c:int):
+error_case = False
+
+def three_symbols_resolve(a:int,b:int,c:int,check=False):
     
+    if check:
+        global error_case
+        error_case =  a == b and b == c and a != 3
+        return (3,3,3) if error_case else (a,b,c)
+        
     sum = a+b+c 
     if (sum == 3 or sum == 5):
 
@@ -81,19 +88,18 @@ def three_symbols_resolve(a:int,b:int,c:int):
     
     return (a,b,c)
 
-def line_solver(Line:list):
+def line_solver(Line:list,check=False):
 
     size = len(Line)
 
     for i in range(size-2):
 
-        (Line[i],Line[i+1],Line[i+2]) = three_symbols_resolve(Line[i],Line[i+1],Line[i+2])
+        (Line[i],Line[i+1],Line[i+2]) = three_symbols_resolve(Line[i],Line[i+1],Line[i+2],check)
 
     for j in range(size-2):
 
         a,b,c = Line[size-1-j],Line[size-2-j],Line[size-3-j]
-        (Line[size-3-j],Line[size-2-j],Line[size-1-j]) = three_symbols_resolve(c,b,a) 
-
+        (Line[size-3-j],Line[size-2-j],Line[size-1-j]) = three_symbols_resolve(c,b,a,check) 
 
 def colum_solver(M,j_col):
 
@@ -165,9 +171,49 @@ def all_colums_symbols_filling(M):
     for c in range(len(M[0])):
         colum_filling(M,c)
 
-def erros_case(M):
+def count_symbols(line):
+    
+    nb_one,nb_zero = 0,0
+    for num in line:
 
-    return
+        nb_one = nb_one+1 if num == 1 else nb_one
+        nb_zero = nb_zero+1 if num == 0 else nb_zero
+
+    return nb_one,nb_zero 
+
+def balance_check(row,col,size):
+
+    global error_case
+    
+    nb_one_line,nb_zero_line = count_symbols(row)
+    nb_one_col,nb_zero_col = count_symbols(col)
+
+    line_error_case = (nb_zero_line != nb_one_line and nb_zero_line + nb_one_line == size)
+    colum_error_case = (nb_zero_col != nb_one_col and nb_zero_col + nb_one_col == size) 
+    error_case = line_error_case or colum_error_case
+  
+
+def errors_case(M):
+
+    global error_case
+    error_case = False
+    res = False
+    size = len(M)
+
+    for i in range(size):
+
+        line_solver(M[i],True)
+
+        col = [r[i] for r in M]
+
+        balance_check(M[i],col,size)
+
+        line_solver(col,True)
+
+        if error_case:
+            res = True
+    
+    return res
 
 def main(M):
     
@@ -179,6 +225,9 @@ def main(M):
   
     global global_edited
     count = 0
+
+    errors_case(M)
+
     while(all_lines_symbols_filling(M)):
 
         if (count == 20):
@@ -195,7 +244,10 @@ def main(M):
 
         if (M == lasted_grid):
             count += 1
-    
+
+        if (errors_case(M)):
+            main(M)
+
     #print_grid(M,"Final Matrix")
 
     #print("=============================")
