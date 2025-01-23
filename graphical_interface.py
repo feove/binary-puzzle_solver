@@ -337,7 +337,7 @@ def example_set(num_grid):
   
     return
 
-helpful_sentences = ["┌──────────────────────────────────┐",f"│  Press {colored("X","yellow")} to set {colored("1","yellow")}                │",f"│  Press {colored("C","cyan")} to set {colored("0","cyan")}                │",f"│  Press {colored("V","light_red")}  to delete              │","│  Press 'b' to clear the line     │","│  Press 'g' to clear the colum    │","│  Press 'j' to clear the grid     │","│  Press 'e' to display an example │","│  Press 'ENTER' to Solve          │","│  Press 'q' to Quit               │","└──────────────────────────────────┘"]
+helpful_sentences = ["┌──────────────────────────────────┐",f"│  Press {colored("X","yellow")} to set 1                │",f"│  Press {colored("C","cyan")} to set 0                │",f"│  Press {colored("V","light_red")}  to delete              │",f"│  Press {colored("B","light_blue")}  to clear the line      │",f"│  Press {colored("G","light_yellow")}  to clear the colum     │",f"│  Press {colored("J","blue")}  to clear the grid      │",f"│  Press {colored("E","green")}  to display an example  │",f"│  Press {colored("ENTER","dark_grey")} to Solve            │",f"│  Press {colored("Q","red")}  to Quit                │","└──────────────────────────────────┘"]
 nb_space = 6
 space_between = " "*nb_space
 

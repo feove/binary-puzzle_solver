@@ -166,6 +166,7 @@ def all_colums_symbols_filling(M):
         colum_filling(M,c)
 
 
+
 def main(M):
     
     #print("=============================")
