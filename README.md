@@ -11,6 +11,10 @@ This project is a Python-based binary puzzle solver. It utilizes Unicode charact
     ```bash
     python3 --version
     ```
+    or
+     ```bash
+    sudo python3 --version
+    ```
 - **Pyinput**: This project requires pyinput library.
 
     ```bash
@@ -28,6 +32,10 @@ To run the program, you can use the following command in your terminal or comman
 
 ```bash
 python3 main.py
+```
+or
+```bash
+sudo python3 main.py
 ```
 
 ## Screenshots
