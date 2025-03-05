@@ -486,7 +486,6 @@ def grid_filling(num_grid):
 
                 M_prev = copy.deepcopy(M)
 
-
                 solver.main(M)
 
                 grids[num_grid] = grid_writing(M,num_grid,True,M_prev)
