@@ -1,11 +1,7 @@
 # Binary Puzzle Solver
 
-## Screenshots
-
 ![Binary Puzzle Solver Screenshot](assets/screenshot_1_binarypuzzle.png "Binary Puzzle Solver in Action")
-![Binary Puzzle Solver Screenshot](assets/screenshot_3_binarypuzzle.png "Binary Puzzle Solver in Action")
 ![Binary Puzzle Solver Screenshot](assets/screenshot_2_binarypuzzle.png "Binary Puzzle Solver in Action")
-![Binary Puzzle Solver Screenshot](assets/screenshot_4_binarypuzzle.png "Binary Puzzle Loading")
 
 
 This project is a Python-based binary puzzle solver. It utilizes Unicode characters to create and manipulate the puzzle grids, providing a user-friendly and visually appealing interface.
@@ -32,11 +28,13 @@ This project is a Python-based binary puzzle solver. It utilizes Unicode charact
 
 ## Running the Program
 
+![Binary Puzzle Solver Screenshot](assets/screenshot_3_binarypuzzle.png "Binary Puzzle Solver in Action")
+
 To run the program, you can use the following command in your terminal or command prompt:
 
 ```bash
 python3 main.py
 ```
-
+![Binary Puzzle Solver Screenshot](assets/screenshot_4_binarypuzzle.png "Binary Puzzle Solver in Action")
 
 
