@@ -15,6 +15,7 @@ This project is a Python-based binary puzzle solver. It utilizes Unicode charact
     ```bash
     python3 --version
     ```
+  
 - **Pyinput**: This project requires pyinput library.
 
     ```bash
@@ -35,6 +36,11 @@ To run the program, you can use the following command in your terminal or comman
 ```bash
 python3 main.py
 ```
+	or 
+```bash
+python3.12 main.py
+```
+
 ![Binary Puzzle Solver Screenshot](assets/screenshot_4_binarypuzzle.png "Binary Puzzle Solver in Action")
 
 
